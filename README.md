@@ -1,5 +1,9 @@
 # pipetools-k8s
 
+## Usage
+
+Small helper for CI/CD Helm/Kubernetes interactions
+
 ## Revisions
 
 |version|helm version|kubectl version|
@@ -16,3 +20,4 @@
 |0.8.6  |v3.4.1      |v1.19.4        |
 |0.9.7  |v3.4.2      |v1.19.5        |
 |0.10.8 |v3.5.0      |v1.19.7        |
+|0.11.8 |v3.5.1      |v1.19.7        |

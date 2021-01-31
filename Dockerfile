@@ -2,9 +2,9 @@ ARG SP_CERTS="itoacr.azurecr.io/ito/sp-certs:0.6"
 FROM ${SP_CERTS} AS certs
 FROM alpine:3.12.3 AS build
 ENV KUBE_LATEST_VERSION=v1.19.7
-ENV HELM_VERSION=v3.5.0
+ENV HELM_VERSION=v3.5.1
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
-LABEL VERSION="v0.10.8"
+LABEL VERSION="v0.11.8"
 LABEL RELEASE="pipetools-k8s"
 LABEL MAINTAINER="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
