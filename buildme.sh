@@ -1,11 +1,11 @@
 #!/bin/bash
-release=$(grep "LABEL RELEASE" Dockerfile|awk '{print $2}'|cut -d\" -f2)
-version=$(grep "LABEL VERSION" Dockerfile|awk '{print $2}'|cut -d\" -f2)
-maintainer=$(grep "LABEL MAINTAINER" Dockerfile|awk '{print $2}'|cut -d\" -f2)
+release=$(grep -i "LABEL RELEASE" Dockerfile|awk '{print $2}'|cut -d\" -f2)
+version=$(grep -i "LABEL VERSION" Dockerfile|awk '{print $2}'|cut -d\" -f2)
+maintainer=$(grep -i "LABEL MAINTAINER" Dockerfile|awk '{print $2}'|cut -d\" -f2)
 coverage="./.coverage.txt"
 echo Version: "$version" found
 echo Release: "$release" found
-echo maintainer: "$maintainer" found
+echo Maintainer: "$maintainer" found
 if dockerfilelint Dockerfile; then
   echo "Dockerfilelint passed"
 else
@@ -34,7 +34,6 @@ if [ "$build_status" == 0 ]; then
   dive --ci "$release":"$version" > .coverage."$version"_dive.txt
   sed -i 's/\x1B\[[0-9;]*[JKmsu]//g' .coverage."$version"_dive.txt||true
   dockle -f json -o .coverage-"$version"_dockle.txt "$release":"$version"
-
 else
  echo "Docker build failed, exiting now"
 fi
