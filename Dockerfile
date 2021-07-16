@@ -1,17 +1,17 @@
 FROM itoacr.azurecr.io/ito/sp-certs:0.7 AS certs
-FROM alpine:3.13.5 AS build
-ENV KUBE_LATEST_VERSION=v1.19.10
-ENV HELM_VERSION=v3.5.4
+FROM alpine:3.14.0 AS build
+ENV KUBE_VERSION=v1.20.9
+ENV HELM_VERSION=v3.6.3
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v0.14.10"
+LABEL version="v0.15.11"
 LABEL release="pipetools-k8s"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
 # shellcheck disable=SC2169
 RUN apk add --no-cache --update -t deps ca-certificates curl bash gettext tar gzip openssl gnupg openssh rsync python3 python3-dev py3-pip py3-wheel tzdata \
   && pip3 install --upgrade --no-cache-dir pip yamllint dos2unix jmespath \
-  && curl -fsL https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -o /bin/kubectl && chmod +x /bin/kubectl \
+  && curl -fsL https://storage.googleapis.com/kubernetes-release/release/${KUBE_VERSION}/bin/linux/amd64/kubectl -o /bin/kubectl && chmod +x /bin/kubectl \
   && curl -sfL https://get.helm.sh/${HELM_FILENAME} | tar xz && mv linux-amd64/helm /bin/helm && rm -rf linux-amd64 && chmod +x /bin/helm \
   && mkdir -p ~/.ssh \
   && eval "$(ssh-agent -s)" \
