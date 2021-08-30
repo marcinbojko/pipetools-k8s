@@ -28,11 +28,15 @@ if [ "$build_status" == 0 ]; then
   rm -rf dive.log||true
   rm -rf ./*.txt||true
   date > "$coverage"
+  echo "Checking versions"
   docker run -it "$release:$version" helm version -c >>"$coverage"
   docker run -it "$release:$version" kubectl version --client=true >>"$coverage"
+  echo "Checking Trivy"
   trivy --output .coverage."$version"_trivy.txt "$release":"$version"
+  echo "Checking Dive"
   dive --ci "$release":"$version" > .coverage."$version"_dive.txt
   sed -i 's/\x1B\[[0-9;]*[JKmsu]//g' .coverage."$version"_dive.txt||true
+  echo "Checking Dockle"
   dockle -f json -o .coverage-"$version"_dockle.txt "$release":"$version"
 else
  echo "Docker build failed, exiting now"
