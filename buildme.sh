@@ -26,7 +26,7 @@ fi
 if [ "$build_status" == 0 ]; then
   echo "Docker build succeed"
   rm -rf dive.log||true
-  rm -rf ./*.txt||true
+  rm -rf ./.*.txt||true
   date > "$coverage"
   echo "Checking versions"
   docker run -it "$release:$version" helm version -c >>"$coverage"
