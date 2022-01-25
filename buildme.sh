@@ -32,7 +32,7 @@ if [ "$build_status" == 0 ]; then
   docker run -it "$release:$version" helm version -c >>"$coverage"
   docker run -it "$release:$version" kubectl version --client=true >>"$coverage"
   echo "Checking Trivy"
-  trivy --output .coverage."$version"_trivy.txt "$release":"$version"
+  trivy image --output .coverage."$version"_trivy.txt "$release":"$version"
   echo "Checking Dive"
   dive --ci "$release":"$version" > .coverage."$version"_dive.txt
   sed -i 's/\x1B\[[0-9;]*[JKmsu]//g' .coverage."$version"_dive.txt||true
