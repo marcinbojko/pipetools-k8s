@@ -1,10 +1,9 @@
-FROM itoacr.azurecr.io/ito/sp-certs:0.8 AS certs
 FROM alpine:3.15.0 AS build
-ENV KUBE_VERSION=v1.21.10
+ENV KUBE_VERSION=v1.22.7
 ENV HELM_VERSION=v3.8.1
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v0.20.18"
+LABEL version="v0.20.19"
 LABEL release="pipetools-k8s"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
@@ -19,6 +18,4 @@ RUN apk add --no-cache --update -t deps ca-certificates curl bash gettext tar gz
   && eval "$(ssh-agent -s)" \
   && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config \
   && chmod -R 700 ~/.ssh
-COPY --from=certs /usr/local/share/ca-certificates /usr/local/share/ca-certificates
-RUN update-ca-certificates
 CMD ["bash"]
