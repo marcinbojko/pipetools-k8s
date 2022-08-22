@@ -29,8 +29,11 @@ if [ "$build_status" == 0 ]; then
   rm -rf ./.*.txt||true
   date > "$coverage"
   echo "Checking versions"
-  docker run -it "$release:$version" helm version -c >>"$coverage"
-  docker run -it "$release:$version" kubectl version --client=true >>"$coverage"
+  {
+  docker run -it "$release:$version" helm version -c
+  docker run -it "$release:$version" kubectl version --client=true
+  docker run -it "$release:$version" datree version
+  } >>"$coverage"
   echo "Checking Trivy"
   trivy image --output .coverage."$version"_trivy.txt "$release":"$version"
   echo "Checking Dive"
