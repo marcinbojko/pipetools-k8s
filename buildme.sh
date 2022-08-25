@@ -30,9 +30,9 @@ if [ "$build_status" == 0 ]; then
   date > "$coverage"
   echo "Checking versions"
   {
-  docker run -it "$release:$version" helm version -c
-  docker run -it "$release:$version" kubectl version --client=true
-  docker run -it "$release:$version" datree version
+  docker run -it --rm "$release:$version" helm version -c
+  docker run -it --rm "$release:$version" kubectl version --client=true
+  docker run -it --rm "$release:$version" datree version
   } >>"$coverage"
   echo "Checking Trivy"
   trivy image --output .coverage."$version"_trivy.txt "$release":"$version"

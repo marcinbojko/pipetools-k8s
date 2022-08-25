@@ -1,9 +1,9 @@
 FROM alpine:3.16.2 AS build
 ENV KUBE_VERSION=v1.22.13
-ENV HELM_VERSION=v3.9.2
+ENV HELM_VERSION=v3.9.4
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v0.24.23"
+LABEL version="v0.25.23"
 LABEL release="pipetools-k8s"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
