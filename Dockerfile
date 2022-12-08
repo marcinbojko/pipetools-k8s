@@ -1,13 +1,13 @@
-FROM alpine:3.16.2 AS build
-ENV KUBE_VERSION=v1.24.7
-ENV HELM_VERSION=v3.10.1
+FROM alpine:3.17.0 AS build
+ENV KUBE_VERSION=v1.24.8
+ENV HELM_VERSION=v3.10.2
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v0.27.25"
+LABEL version="v0.28.26"
 LABEL release="pipetools-k8s"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
-COPY --from=datree/datree:1.6.42 /datree /bin/datree
+COPY --from=datree/datree:1.8.8 /datree /bin/datree
 # shellcheck disable=SC2169
 RUN apk add --no-cache --update -t deps ca-certificates curl bash gettext tar gzip openssl gnupg openssh rsync python3 python3-dev py3-pip py3-wheel tzdata\
   && pip3 install --upgrade --no-cache-dir pip yamllint dos2unix jmespath \
