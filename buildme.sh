@@ -32,7 +32,6 @@ if [ "$build_status" == 0 ]; then
   {
   docker run -it --rm "$release:$version" helm version -c
   docker run -it --rm "$release:$version" kubectl version --client=true
-  docker run -it --rm "$release:$version" datree version
   } >>"$coverage"
   echo "Checking Trivy"
   trivy image --output .coverage."$version"_trivy.txt "$release":"$version"

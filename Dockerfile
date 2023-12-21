@@ -1,16 +1,16 @@
-FROM alpine:3.17.2 AS build
-ENV KUBE_VERSION=v1.24.14
-ENV HELM_VERSION=v3.12.0
+FROM alpine:3.19.0 AS build
+ENV KUBE_VERSION=v1.25.16
+ENV HELM_VERSION=v3.13.3
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v0.30.28"
+LABEL version="v0.31.29"
 LABEL release="pipetools-k8s"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
-COPY --from=datree/datree:1.9.2 /datree /bin/datree
 # shellcheck disable=SC2169
-RUN apk add --no-cache --update -t deps ca-certificates curl bash gettext tar gzip openssl gnupg openssh rsync python3 python3-dev py3-pip py3-wheel tzdata\
-  && pip3 install --upgrade --no-cache-dir pip yamllint dos2unix jmespath \
+# shellcheck disable=SC3036
+RUN apk add --no-cache --update -t deps \
+  ca-certificates curl bash gettext tar gzip openssl gnupg openssh rsync python3 python3-dev py3-pip py3-wheel tzdata yamllint dos2unix jmespath \
   && apk update \
   && apk upgrade --no-cache \
   && curl -fsL https://storage.googleapis.com/kubernetes-release/release/${KUBE_VERSION}/bin/linux/amd64/kubectl -o /bin/kubectl && chmod +x /bin/kubectl \
