@@ -46,4 +46,5 @@ Small helper for CI/CD Helm/Kubernetes interactions
 |0.29.27|v3.11.0     |v1.24.10       |
 |0.30.28|v3.12.0     |v1.24.14       |
 |0.31.29|v3.13.3     |v1.25.16       |
+|0.31.30|v3.13.3     |v1.26.12       |
 |||
